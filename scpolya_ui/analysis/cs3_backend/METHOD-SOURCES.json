@@ -1,0 +1,170 @@
+[
+  {
+    "file": "mouse_candidates.py",
+    "upstream_sha256": "1f72de8fbc5254415e77466a27d42a41e6866d5296eb48e4acd601aaabe11077",
+    "extracted_sha256": "1f72de8fbc5254415e77466a27d42a41e6866d5296eb48e4acd601aaabe11077",
+    "edits": [],
+    "upstream_bytes": 36484,
+    "upstream_mode": "0o664",
+    "unchanged_definitions": [
+      "strict_integer",
+      "finite_nonnegative",
+      "strict_strand",
+      "nonempty_text",
+      "validate_interval",
+      "pas_boundary_0based",
+      "pas_boundary_1based",
+      "CandidateCore",
+      "_optional_text",
+      "candidate_core",
+      "nearest_same_strand_distance",
+      "atlas_assessment",
+      "ReferenceContract",
+      "ReferenceRecord",
+      "validate_position_for_base",
+      "ReferenceIndex",
+      "reference_schema_inventory",
+      "parse_stored_mispriming",
+      "export_scope_status",
+      "_window_transcript_coords",
+      "window_sequence",
+      "_requested_window",
+      "_channel_result",
+      "canonical_motif",
+      "downstream_a_richness",
+      "sequence_context",
+      "parse_pass_qc",
+      "cell_support",
+      "evidence_axes",
+      "evidence_sort_key",
+      "candidate_reference_query"
+    ],
+    "changed_definitions": [],
+    "removed_definitions": []
+  },
+  {
+    "file": "run_transform.py",
+    "upstream_sha256": "226bdd3cbac3e51f71b4da0faa3b381b9ec48d7f5ce867bb4751ca094196920c",
+    "extracted_sha256": "c770eb2a00178d6e42545e5753077645bbcf7f3f2251f9490a0fde287649677f",
+    "edits": [
+      "Remove historical constants/real_run/CLI/selftest scaffolding",
+      "Explicit binary argument in argv/accounted functions",
+      "Remove expected.json read; expected remains None (test-only branches inert)"
+    ],
+    "upstream_bytes": 51570,
+    "upstream_mode": "0o664",
+    "unchanged_definitions": [
+      "sha256",
+      "run_exact_argv",
+      "load_sizes",
+      "validate_bed_file",
+      "parse_unmapped",
+      "MappedOutputIndex",
+      "parse_bed_outputs",
+      "ChainIndex",
+      "build_chain_index",
+      "write_source_map",
+      "read_source_map",
+      "iter_source_map",
+      "validate_input_bed",
+      "parse_original_source",
+      "tuple_equal",
+      "classify_row",
+      "write_crosswalk",
+      "write_status"
+    ],
+    "changed_definitions": [
+      "canonical_argv",
+      "audit_argv",
+      "run_accounted"
+    ],
+    "removed_definitions": [
+      "make_case",
+      "build_selftest",
+      "real_run",
+      "parser",
+      "main"
+    ]
+  },
+  {
+    "file": "adapter.py",
+    "upstream_sha256": "060c5749c7d2e788d426a54178f68beb78c21925167aae8fe51ac0df91b8d967",
+    "extracted_sha256": "ffa82f22c0a8f1a12c30bcf77bd056a263f962673423800d6dbdb5e6d78e2935",
+    "edits": [
+      "Remove old readiness/CLI/dynamic code import; pinned packaged helper",
+      "run takes already validated observations/cached and records native binding",
+      "Remove historical-only atlas name and chrM identity gates; coverage algorithm unchanged",
+      "Completion label for explicit native_snapshot mode"
+    ],
+    "upstream_bytes": 34574,
+    "upstream_mode": "0o664",
+    "unchanged_definitions": [
+      "execution_binding",
+      "require",
+      "digest",
+      "read_json",
+      "file_state",
+      "write_json",
+      "rows",
+      "integer",
+      "load_labels",
+      "IndexedFasta",
+      "sequence_axes",
+      "load_reference",
+      "CoverageIndex",
+      "emit",
+      "native_evidence"
+    ],
+    "changed_definitions": [
+      "run"
+    ],
+    "removed_definitions": [
+      "preflight",
+      "import_helper",
+      "main"
+    ]
+  },
+  {
+    "file": "project_reference.py",
+    "upstream_sha256": "a18f25a8ca497c51781292748bef2650558f39b9be713e957785d577fb609f04",
+    "extracted_sha256": "200348fd8222cec13e60eb963f5b3f6b58f09589669d66e6469921958eea7dc9",
+    "edits": [
+      "Replace historical preflight with explicit snapshots/metadata",
+      "Remove historical-only production chrM/X/Y source coverage identity gate",
+      "Atlas label/population/release/provenance from explicit declaration",
+      "Remove historical ADAPTER pending request template generation",
+      "Replace historical independent-review wording in generated provenance; current computation does not self-certify review",
+      "R2 metadata only: validated normalized source column base, explicit point semantics and declared summary atlas label; scientific table fields unchanged"
+    ],
+    "upstream_bytes": 25160,
+    "upstream_mode": "0o664",
+    "unchanged_definitions": [
+      "require",
+      "sha",
+      "dump",
+      "emit",
+      "state",
+      "number",
+      "table",
+      "sizes",
+      "merge",
+      "complement",
+      "Chain"
+    ],
+    "changed_definitions": [
+      "project"
+    ],
+    "removed_definitions": [
+      "preflight",
+      "main"
+    ]
+  },
+  {
+    "file": "api.py shortlist selection",
+    "upstream_sha256": "ab5ace288d65518f3855236c22b7597e989a5b51840f635ac12b24e28a5ef73b",
+    "upstream_spans": "order/group/gene functions, main lines106-136; no new thresholds",
+    "edits": [
+      "IO outputs/loop adapted into candidates(); exact two-stratum joint-QC selection and sort retained"
+    ]
+  }
+]

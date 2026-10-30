@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools>=77", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "scpolya"
+version = "2.1.0"
+description = "scPolyA: single-cell poly(A) site analysis with agent tools and donor-level differential APA"
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{ name = "The Wen Lab" }]
+requires-python = ">=3.10"
+dependencies = ["matplotlib>=3.7"]
+
+[project.optional-dependencies]
+query = ["numpy>=1.24"]
+gui = ["nicegui>=2,<3"]
+test = ["pytest>=7", "numpy>=1.24"]
+
+[project.scripts]
+scpolya-agent = "scpolya_agent.cli:main"
+scpolya-operator = "scpolya_agent.operator_cli:main"
+scpolya-diff-apa = "scpolya_diff.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["scpolya_agent*", "scpolya_diff*"]
+namespaces = false
+
+[tool.setuptools.package-data]
+scpolya_diff = ["*.R"]
+scpolya_agent = ["*.json", "*.md", "assets/**/*"]

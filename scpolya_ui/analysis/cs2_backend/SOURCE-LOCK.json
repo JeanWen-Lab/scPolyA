@@ -1,0 +1,46 @@
+{
+  "sources": [
+    {
+      "local": "method/paired.py",
+      "sha256": "f069430d4c2fbe6a981a4f66d764c58a6aa47b02bfd0c8e1960315dbc237c52a"
+    },
+    {
+      "local": "method/common.py",
+      "sha256": "cf2ade90f86399dc4bd9b826be33f1f59930d79509402a883f60255da390a165"
+    },
+    {
+      "local": "method/descriptive.py",
+      "sha256": "b054a21fe01ef4cdc81eac7a41b77b6b8270ac6217c53444b4e9235584318840"
+    },
+    {
+      "local": "method/masking.py",
+      "sha256": "bff4fefa3ec926acf7b390e494b6ced94be3e423504e8ae339f5798e41ba3784"
+    },
+    {
+      "local": "method/q1_site_quality.py",
+      "sha256": "39c0bd58e1d9658bdd72616b2f965ee09f7f45dd10a3902602f3b908da2381eb"
+    },
+    {
+      "local": "method/full_contig_adapter.py",
+      "sha256": "3057372b6463b1778a8e207be42a50e154166442eb4f788465c6977fad2e86d5"
+    },
+    {
+      "local": "method/qc_rows.py",
+      "sha256": "f34ac81cceb2ad13cc38058ff0f847dc61249253ef32a1d27ae6c654d355be6c"
+    },
+    {
+      "local": "method/method.frozen.json",
+      "sha256": "f6f4db8364e7792abb7d8de5e8cbf1727b7df99a698a195b0e50b91c703156c3"
+    }
+  ],
+  "algorithm_changes": false,
+  "adaptations": [
+    "paired.py reused mechanically extracted pure module; no duplicate extraction",
+    "common: remove old source loader and one-shot QC binding wrapper",
+    "descriptive/masking relative imports; masking gate wording only",
+    "qc_rows: preserve load_qc source-row validation body; new-run manifests checked by engine",
+    "Q1 calculator and scope adapter byte-identical"
+  ],
+  "paired_upstream_sha256": "e2a764501a72704b42da8a3a84b813492ace15d216b2b53f9868a827e0130b08",
+  "paired_extracted_sha256": "f069430d4c2fbe6a981a4f66d764c58a6aa47b02bfd0c8e1960315dbc237c52a"
+}

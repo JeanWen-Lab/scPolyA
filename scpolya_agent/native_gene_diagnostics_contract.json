@@ -1,0 +1,57 @@
+{
+ "schema":"scpolya.native_gene_diagnostics.contract.v1",
+ "status":"implemented_candidate_pending_independent_review",
+ "entry":{"python":"Load installed native_gene_diagnostics.py via importlib.util; call diagnose_native_gene_selection(request)","cli":"python -B <installation>/scpolya_agent/native_gene_diagnostics.py --request request.json","package_caveat":"Do not use python -m scpolya_agent...: existing package __init__ imports inspection. This adapter loads adjacent accepted engine and native pure artifact_naming/effective_config files only; no private paths or pipeline calls."},
+ "request_schema":"scpolya.native_gene_diagnostics.request.v1",
+ "request_required":{
+  "run_root":"absolute existing regular directory; no symlink components",
+  "namespace":{"peak":"pk-16hex","annotation":"an-16hex","matrix":"mx-16hex"},
+  "sample_id":"exact native string","registry_sample_id":"same sample_id",
+  "artifact_base":"explicit sample_id.<config dedup_method>.annotated; v1 requires input is_deduped=0, external-dedup naming refused",
+  "invocation_inputs_path":"exact original CSV path in resolved_config.inputs; original file not read",
+  "sample_source_path":"exact source_path in run input_tables/inputs.csv; BAM never opened",
+  "selection":"1..3 unique {gene_id,strand,cell_barcodes:[nonempty explicit unique strings]}; total gene-cell units<=256, so3x96 refused",
+  "assertions":{"quiescent":true,"complete_count_catalogue_scope":true,"registry_sample_binding":true},
+  "sources":"object of six required and up to three optional roles, each {path,sha256}; expected SHA lowercase64hex"
+ },
+ "request_optional":{"historical_run_commit":"null or bounded caller-asserted string","limits":"only positive integer reductions of documented maxima","metrics":"not supported; all four fixed engine metrics returned, any metrics selector refuses/unsupported_metric_selection"},
+ "sources":{
+  "inputs":"required relative input_tables/inputs.csv: exactly one sample row matching sample_id/source_path; is_deduped/requires_split=0or1",
+  "manifest":"required relative state/artifact_name_manifest.v1.json: schema_version scpolya.artifact_name_manifest.v1,mode short,sha256,16hex; validate every scoped record with native pure helper",
+  "config":"required logs/invocations/<explicit-id>/invocation.json: schema_version scpolya.logging.invocation.v2, config_schema_version literal integer 1 (bool refused), resolved_config and lowercase64hex config_hash verified by standard-library canonical JSON SHA256; no other config fallback",
+  "registry":"required explicit absolute native one-column whitelist (.tsv/.txt, optionally .gz); no header, unique IDs; external sample binding asserted and overlap checked",
+  "counts":"required count_matrix/<pk>/<an>/<artifact_base>.counts.terminal-aware.v2.tsv.gz; exact three columns peak_name,cell_barcode,umi_count",
+  "catalogue":"required matrix_summary/<pk>/<an>/<mx>/<an>.terminal_aware_peak_to_gene.v2.tsv.gz",
+  "psi":"optional same summary root/<artifact_base>.terminal_aware_psi.v2.tsv.gz",
+  "ipui_site":"optional same summary root/<artifact_base>.intronic_ipui_per_site.v2.tsv.gz",
+  "ipui_total":"optional same summary root/<artifact_base>.intronic_ipui_gene_total.v2.tsv.gz"
+ },
+ "binding":[
+  "Snapshot v1 resolved_config is restricted to strict JSON dict(str keys)/list/null/str/int/finite float/bool. Native writer _jsonable is identity on this domain: hash json.dumps(sort_keys=True,separators=(comma,colon),ensure_ascii=True), UTF-8, SHA256. Isolated parity tests bind this rule to native _config_hash. Path/set/custom Python objects are unsupported; logging_config is never imported by the adapter.",
+  "Manifest uses native ScopedArtifactNameV1 and validate_artifact_name_records; duplicate codes refused; full digest/code and schema verified without reimplementing hash algorithm.",
+  "Require an.payload.peak=pk.payload and mx.payload.annotation=an.payload. Reconstruct expected scientific payload using pure effective_config.build_annotated_peak_config and artifact_naming payload helpers from resolved_config; compare complete pk/an/mx payloads including terminal schema, thresholds and psi_min_gene_umis.",
+  "Invocation run_root and resolved output_dir/run_id must match requested root; top-level output_dir/run_id must equal resolved fields. Recorded inputs path must match request; copied run CSV must match single sample and source_path. The linkage from external original CSV to copied run CSV is NOT independently authenticated: original file is not a tenth source. This remains explicit caller provenance.",
+  "All source paths explicit; native sources contained in root; no glob/latest selection, legacy fallback, source BAM read, SQLite, inspection call, repair or scientific clearance."
+ ],
+ "catalogue_fields":["peak_name","gene_id","strand","feature","misprimed_ratio","general_mispriming_pass","intronic_mispriming_pass","mispriming_pass","is_distal_peak","distance_to_stop_codon","n_peaks_in_gene","peak_order_in_gene"],
+ "parsing":"Single-line native TSV/CSV records only, strict widths and headers. IDs NA/001 stay strings; blank catalogue gene_id is unassigned; optional summaries require nonblank gene_id, valid strand and registered unit on every row. True/False parsed explicitly. Numeric blanks nullable; Decimal integral metadata/counts bounded by2^53-1; DecimalException becomes invalid_counts; finite float roundtrip. Native flags checked against bound thresholds. Unknown mappings/duplicate pairs refused; normal unassigned counts audited.",
+ "scope":"All catalogue/count rows scanned to EOF for mapping/count/registry validation. Only selected-gene/selected-cell records enter engine. Registered unobserved cells can have known sparse zeros under caller complete scope. Unknown cells refuse. Missing native distal PSI rows stay absent; never compared as zero. Gene absent yields unavailable rather than fabricated rows.",
+ "metrics":"Accepted gene_diagnostics.v2 formulas and policies unchanged: rawS/retainedS/T/I/D, failed-intronic audit, four fractions. Intronic-only positive I with no terminal returns no_eligible_terminal per engine policy, not I=0 or an invented fraction=1. Adapter adds catalogue partner accounting, not another formula engine.",
+ "native_comparisons":"Existing selected native distal PSI row must match catalogue gene/strand/PAS and exact engine D/T numerator/denominator before value comparison at absolute tolerance1e-15. Missing summary, missing row, unavailable value and mismatch remain distinct. Optional summary extra columns are allowed but ignored for identity: PSI uses peak_name/cell_barcode, iPUI uses intronic_pas_id (per-site only)/quantification_unit_id. Per-site PAS must match catalogue gene/strand. Optional iPUI files are schema/identity scanned and counted; no second iPUI formula implementation or blanket claim all native values were validated.",
+ "limits":{
+  "request_bytes":32768,"source_files":9,"source_bytes_each":33554432,"source_bytes_total":67108864,"io_bytes":134217728,
+  "expanded_bytes_each":134217728,"expanded_bytes_total":268435456,"count_rows":1000000,"catalogue_rows":20000,"registry_rows":10000,"optional_rows":100000,
+  "columns":32,"row_bytes":65536,"field_bytes":4096,"json_bytes":1048576,"json_nodes":20000,"selected_genes":3,"units":256,
+  "engine_count_rows":50000,"engine_catalogue_rows":2000,"engine_text_bytes":4194304,"engine_nodes":500000,"output_records":4096,"output_bytes":1048576,"seconds":120
+ },
+ "budget_semantics":[
+  "Limits only decrease. Source bytes are distinct file sizes; io_bytes charges both parse and final rehash. Expansion tracked while bounded readline; CRC/truncation faults refuse. JSON depth<=12 checked before parsing, nodes afterwards; request depth<=8/nodes<=6000. Strings encoded in bounded chunks for aggregate engine text checks.",
+  "Engine selected row/text/node budgets and output records charged across genes including repeated provenance. Each engine call has remaining output cap. Adapter envelope and gene payloads stream through size accounting before append; reserve2048 bytes for final usage counters, then bounded final encoder check. Conservative refusal near cap permitted; no giant dump-and-truncate.",
+  "output_records counts source entries, context entries, wrapper gene records, native comparison rows, engine denominator/metric/site-audit/sample-audit rows. Combined canonical output ensure_ascii=True,sort_keys=True,separators=(',',':'),allow_nan=False UTF-8, no trailing newline.",
+  "Cooperative monotonic deadline checked during read/loops; synchronous blocking filesystem operations are NOT forcibly preempted. External120s process supervisor required for operational wall limit."
+ ],
+ "stability":"No symlinks/path escapes. Descriptor and path device/inode/size/mtime_ns/ctime_ns checked before/after read, SHA of original compressed bytes verified. Recheck/re-hash every source immediately before result release; detected change discards all numerical output. Observed stability is not a concurrent-writer sandbox guarantee.",
+ "provenance":"Observed paths/hashes/schema/payload/config agreement are separate from claimed historical commit/upstream completeness/quiescence/external registry and copied-input origin. Current checkout never becomes historical run version. Include installed engine SHA and request selection SHA. whole_run_health=not_assessed,clearance=none.",
+ "responses":"status ok with gene_results including unavailable metrics, or status refused with stable code/detail and no partial gene_results. CLI exit0 or2 respectively. Structured input/source/schema/hash/limit/change errors; no source writes and no automatic repair/retry/batching.",
+ "validation_scope":"Bounded development96-cell chr1 fixture only. No4620-cell one-response, pseudobulk, labelDE/UMAP, biological mechanism/significance, mixed-CS07 quality validation or planner. Full sample requires separate validation even when file budgets permit selected-cell reads."
+}

@@ -1,0 +1,11 @@
+policy	score	rule	tau	val_n_sites	val_pct_polyadb	tau_calibrated
+t3	in_t3	overlaps a threshold-3 (default) peak		6440	68.0124	
+t1	-	all parent sites		17432	37.3623	
+deepcps_size	deepcps	VAL size = VAL t3 size (6440)	0.70716	6440	86.9099	0.682692
+deepcps_supp	deepcps	VAL PolyA_DB 3 support >= VAL t3 support (68.01%)	0.292349	9108	68.0171	0.206897
+deeppass_size	deeppass	VAL size = VAL t3 size (6440)	0.859911	6440	84.5497	
+deeppass_supp	deeppass	VAL PolyA_DB 3 support >= VAL t3 support (68.01%)	0.132319	8898	68.0153	
+seq_rule_size	seq_rule	VAL size = VAL t3 size (6440)	0.52733	6497	77.4973	
+seq_rule_supp	seq_rule	VAL PolyA_DB 3 support >= VAL t3 support (68.01%)	0.370598	8175	69.0642	
+deepcps_05	deepcps_cal	calibrated DeepCPS >= 0.5 (fixed)	0.5	7099	82.6032	
+deeppass_05	deeppass	DeepPASS P > 0.5 (its own call)	0.5	7685	76.1744	

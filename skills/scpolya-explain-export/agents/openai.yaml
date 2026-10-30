@@ -1,0 +1,4 @@
+interface:
+  display_name: "Explain and export scPolyA"
+  short_description: "Explain and evidence scPolyA outputs"
+  prompt: "Explain verified native outputs, compute the descriptive evidence the question needs, export source-cited materials, and prepare standalone GUI handoff."

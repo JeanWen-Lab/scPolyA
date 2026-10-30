@@ -1,0 +1,118 @@
+{
+  "schema": "scpolya.native_fixed_coverage.recipe.v1",
+  "recipe": "all_native_v3_general_pass_terminal_sites_for_selected_units_v1",
+  "native_annotation_identity": "terminal-annotation-v3",
+  "catalogue_fields": {
+    "required": [
+      "peak_name",
+      "gene_id",
+      "strand",
+      "feature",
+      "misprimed_ratio",
+      "general_mispriming_pass",
+      "intronic_mispriming_pass",
+      "mispriming_pass",
+      "is_distal_peak",
+      "distance_to_stop_codon",
+      "n_peaks_in_gene",
+      "peak_order_in_gene",
+      "chrom",
+      "start",
+      "end"
+    ],
+    "optional_known": [
+      "gene_name",
+      "peak_length",
+      "canonical_transcript",
+      "stop_codon_position",
+      "distance_to_gene",
+      "three_prime_utr_length",
+      "max_cov",
+      "total_polyA_reads",
+      "total_reads"
+    ],
+    "note": "NativebinderCAT_FIELDS has12fields; plus3locationfields gives15required, not16. Currentknownnativeheader24columns. Require unique headers, all required present andonlyknownextras; no callerdefinedscientificschema."
+  },
+  "caps": {
+    "cells": 512,
+    "genes": 64,
+    "PAS": 256,
+    "N_element_max": 10000000,
+    "T_element_max": 10000000,
+    "source_bytes_each": 33554432,
+    "source_bytes_total": 67108864,
+    "metadata_bytes_each": 1048576,
+    "request_bytes": 65536,
+    "count_rows": 1000000,
+    "catalogue_rows": 20000,
+    "source_or_registry_cells": 10000,
+    "expanded_bytes_total": 268435456,
+    "io_bytes_total": 201326592,
+    "columns": 64,
+    "row_bytes": 65536,
+    "field_bytes": 4096,
+    "coverage_identity_bytes": 256,
+    "selected_context_rows": 2000,
+    "selected_context_bytes": 1048576,
+    "five_file_bytes_total": 2097152,
+    "attempt_output_bytes_total": 4194304,
+    "CPUs": 2,
+    "memory_bytes": 8589934592,
+    "swap_bytes": 0,
+    "thread_variables": 1,
+    "Python_B": true,
+    "childless_prepare_OS_fuse_seconds": 110,
+    "systemd_runtime_seconds": 115,
+    "systemd_stop_seconds": 5
+  },
+  "priority": [
+    "outside_cohort",
+    "unassigned_gene",
+    "unselected_gene",
+    "nonterminal",
+    "general_fail_terminal",
+    "retained"
+  ],
+  "scope": "All structurally eligible terminal general-pass PAS for explicit gene-strand and cohort; zeros remain; no pooled-count selection.",
+  "provenance": {
+    "observed": "Compressed bytes/SHA/stability, schema, canonical config hash, native sample/root/CSV consistency, complete pk/an/mx scientific payload and digest consistency.",
+    "declared": "External cohort/registry sample origin, class biology, original-to-copied-input origin, historical commit, quiescence and native scope completeness.",
+    "not_assessed": "Native completion/scientific acceptance.",
+    "no_registry": "Explicit cohort is membership authority; bound/audit all source cell IDs, but do not claim global source-cell registry validation."
+  },
+  "native_freshness": "checked_at_preparation_only",
+  "contract_authority_sha256": "908f33ca574e49f1a4df4143b6fac613fbd3cca62651c05f85c031633359f498",
+  "native_payload_port": "Narrow explicit-active-field identity rules ported from accepted q2_io/native pure specifications; no runtime research/native-package/quantification_config imports.",
+  "normative_addendum_sha256": "8eeb68822c85cb321d6eac1aceef76afb198ecc9ef37cb7cfe456f9a89d10949",
+  "projection": {
+    "schema": "scpolya.native_fixed_coverage.cohort_projection.v1",
+    "recipe_id": "barcode_group_to_cell_index_utf8_v1",
+    "input_header": [
+      "barcode",
+      "group"
+    ],
+    "sort": "raw_barcode_utf8_ascending",
+    "output_header": [
+      "cell_index",
+      "barcode",
+      "major_class",
+      "cell_type"
+    ],
+    "mapping": {
+      "cell_index": "zero_based_decimal_contiguous",
+      "barcode": "original_barcode",
+      "major_class": "original_group",
+      "cell_type": "original_group"
+    },
+    "encoding": "UTF8_LF_exact_header_final_LF_no_BOM_no_normalization"
+  },
+  "request_extensions": {
+    "cohort_origin": "Optional exact {sample_id,original_selection:{path,bytes,sha256},recipe_id}; omission means direct canonical authority, projection unassessed.",
+    "registry_sample_id": "Required iff registry supplied; exact sample_id match; declared external sample origin only."
+  },
+  "saved_consistency": {
+    "native-config.json": "Exact original config bytes bound to request descriptor; pure reconstruction of root/sample/base, all active scientific payloads, nested pk/an/mx digests and strict native binding.",
+    "selected_context": "Revalidate original fields under saved bound config; selected units, terminal/general eligibility and reasons, source row uniqueness/order, eligible-context/feature bijection, complete K/order.",
+    "provenance": "Exact deterministic request/fixed-semantics schema and canonical value comparison; no authentication or scientific acceptance claim."
+  }
+}

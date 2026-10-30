@@ -1,0 +1,31 @@
+# Python caches and test output
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Editors and operating-system metadata
+.idea/
+.vscode/
+.DS_Store
+
+# Local pipeline workspaces and generated logs
+z_local/
+z_results/
+sc-polya-v2-UMI-tools
+*.log
+
+# Generated delivery and backup archives
+*.zip
+*.tar
+*.tar.gz
+*.tgz
+*.docx
+
+# Local packaging output
+build/
+dist/
+*.egg-info/

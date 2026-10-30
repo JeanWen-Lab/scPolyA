@@ -1,0 +1,4 @@
+interface:
+  display_name: "Prepare scPolyA run"
+  short_description: "Prepare and run native analyses"
+  prompt: "Validate the native source binding, resolve explicit settings, use native planning, show the researcher the exact plan parameters and plan hash, and run that plan after the researcher agrees in the chat."

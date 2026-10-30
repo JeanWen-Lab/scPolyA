@@ -1,0 +1,8 @@
+include LICENSE README.md native_entry.py
+recursive-include requirements *.txt *.json
+recursive-include skills *.md
+recursive-include scpolya_agent *.json *.md *.py *.yaml
+recursive-include scpolya_diff *.py *.R
+global-exclude __pycache__ *.py[cod]
+prune scpolya_ui
+recursive-include models *.pt *.tsv

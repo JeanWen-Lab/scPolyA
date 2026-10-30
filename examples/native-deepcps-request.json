@@ -1,0 +1,29 @@
+{
+  "schema": "scpolya.native_task_request.v1",
+  "job_name": "native-deepcps-example",
+  "job_dir": "/absolute/fresh/job-directory",
+  "python": "/absolute/scientific-environment/bin/python",
+  "preset": "manuscript-v4",
+  "run": {
+    "output_dir": "/absolute/fresh/output-parent",
+    "run_id": "native-deepcps-example",
+    "species": "human",
+    "inputs": "/absolute/inputs.csv",
+    "gene_gtf": "/absolute/reference.gtf",
+    "chrom_sizes": "/absolute/chrom.sizes",
+    "contigs": ["chr1"],
+    "deepcps": true,
+    "reference_fasta": "/absolute/reference.fa",
+    "deepcps_model_dir": "/absolute/supplied-candidate-models",
+    "deepcps_model_manifest": "/absolute/native-checkout/modules/deepcps/supplied_candidate_manifest.json",
+    "deepcps_threads": 2,
+    "deepcps_batch_size": 128
+  },
+  "resources": {
+    "cpu_quota_percent": 200,
+    "memory_max_bytes": 8589934592,
+    "runtime_max_sec": 1200,
+    "workers": 1
+  },
+  "preflight": {"max_records_per_contig": 20000, "hash_bams": true}
+}

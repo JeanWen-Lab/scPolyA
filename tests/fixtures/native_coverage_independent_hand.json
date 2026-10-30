@@ -1,0 +1,70 @@
+{
+  "schema": "scpolya.native_coverage_adapter.hand_oracle.v1",
+  "provenance": "Hand-derived from explicit raw rows before adapter implementation. Tests may encode these semantic records in the supported native schema, but may not derive expected matrices with the adapter.",
+  "sample_id": "synthetic-native-sample",
+  "declared_groups": ["A", "B"],
+  "registry_cells": ["001", "NA", "c3", "c4", "z_outside"],
+  "selected_cells": [
+    {"barcode": "001", "group": "A", "cell_type": "synthetic"},
+    {"barcode": "NA", "group": "A", "cell_type": "synthetic"},
+    {"barcode": "c3", "group": "B", "cell_type": "synthetic"},
+    {"barcode": "c4", "group": "B", "cell_type": "synthetic"}
+  ],
+  "selected_gene_units": [
+    {"gene_id": "001", "strand": "+"},
+    {"gene_id": "NA", "strand": "-"},
+    {"gene_id": "x|y", "strand": "+"}
+  ],
+  "catalogue_semantics_in_input_order": [
+    {"peak": "p5", "gene_id": "x|y", "strand": "+", "feature": "Terminal_exon", "misprimed_ratio": 0.1, "general_pass": true, "native_order": 2, "eligible_gene_K": 2},
+    {"peak": "p_bad", "gene_id": "001", "strand": "+", "feature": "Terminal_exon", "misprimed_ratio": 0.95, "general_pass": false, "native_order": null, "eligible_gene_K": null},
+    {"peak": "p2", "gene_id": "NA", "strand": "-", "feature": "Terminal_exon", "misprimed_ratio": 0.1, "general_pass": true, "native_order": 1, "eligible_gene_K": 2},
+    {"peak": "p_intronic", "gene_id": "001", "strand": "+", "feature": "Intron", "misprimed_ratio": 0.1, "general_pass": true, "native_order": null, "eligible_gene_K": null},
+    {"peak": "p1", "gene_id": "001", "strand": "+", "feature": "Downstream_of_terminal_exon", "misprimed_ratio": 0.1, "general_pass": true, "native_order": 2, "eligible_gene_K": 2},
+    {"peak": "p_other_gene", "gene_id": "unselected", "strand": "+", "feature": "Terminal_exon", "misprimed_ratio": 0.1, "general_pass": true, "native_order": 1, "eligible_gene_K": 1},
+    {"peak": "p4", "gene_id": "x|y", "strand": "+", "feature": "Terminal_exon", "misprimed_ratio": 0.1, "general_pass": true, "native_order": 1, "eligible_gene_K": 2},
+    {"peak": "p0", "gene_id": "001", "strand": "+", "feature": "Terminal_exon", "misprimed_ratio": 0.1, "general_pass": true, "native_order": 1, "eligible_gene_K": 2},
+    {"peak": "p3", "gene_id": "NA", "strand": "-", "feature": "Terminal_exon", "misprimed_ratio": 0.1, "general_pass": true, "native_order": 2, "eligible_gene_K": 2}
+  ],
+  "raw_count_rows_in_input_order": [
+    {"peak": "p_other_gene", "cell": "001", "UMI": 13},
+    {"peak": "p3", "cell": "c4", "UMI": 5},
+    {"peak": "p0", "cell": "z_outside", "UMI": 11},
+    {"peak": "p1", "cell": "001", "UMI": 3},
+    {"peak": "p_intronic", "cell": "001", "UMI": 17},
+    {"peak": "p2", "cell": "c3", "UMI": 7},
+    {"peak": "p_bad", "cell": "001", "UMI": 19},
+    {"peak": "p0", "cell": "001", "UMI": 2},
+    {"peak": "p0", "cell": "c4", "UMI": 4}
+  ],
+  "expected_cell_order": ["001", "NA", "c3", "c4"],
+  "expected_gene_unit_ids": ["001|%2B", "NA|-", "x%7Cy|%2B"],
+  "expected_PAS_order": ["p0", "p1", "p2", "p3", "p4", "p5"],
+  "expected_gene_blocks": [[0, 2], [2, 4], [4, 6]],
+  "expected_N": [[2, 3, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0], [0, 0, 7, 0, 0, 0], [4, 0, 0, 5, 0, 0]],
+  "expected_T": [[5, 0, 0], [0, 0, 0], [0, 7, 0], [4, 5, 0]],
+  "expected_accounting": {
+    "catalogue_rows": 9,
+    "count_rows": 9,
+    "raw_UMI": 81,
+    "retained_UMI": 21,
+    "outside_selected_cohort_UMI": 11,
+    "unselected_gene_UMI_within_cohort": 13,
+    "nonterminal_UMI_within_selected_gene_cohort": 17,
+    "general_fail_terminal_UMI_within_selected_gene_cohort": 19,
+    "retained_cells": 4,
+    "retained_genes": 3,
+    "retained_PAS": 6,
+    "globally_zero_PAS_retained": 2,
+    "globally_zero_gene_retained": 1,
+    "registered_unobserved_selected_cells_retained": 1
+  },
+  "semantic_checks": [
+    "Cell NA is registered and explicitly selected although absent from every count row; it remains an all-zero row, not silently dropped.",
+    "Gene x|y has two eligible but globally unobserved PAS; both columns and the gene remain. No pooled-positive filtering is part of this conversion.",
+    "Literal gene/cell NA and gene001 stay literal identifiers; gene-unit delimiter characters are percent-encoded injectively.",
+    "Intronic and general-fail terminal counts are excluded by the documented fixed eligibility rule, with their counts accounted for.",
+    "Unselected cells and genes remain part of source accounting but not the fixed output cohort; raw81=retained21+excluded60.",
+    "Changing duplicate or unknown peak/cell rows must refuse even if the row would not contribute to the output."
+  ]
+}

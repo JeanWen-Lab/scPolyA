@@ -1,0 +1,346 @@
+{
+  "schema": "scpolya.q1_quality_protocol.v1",
+  "status": "frozen_before_any_real_quality_feature_calculation",
+  "created_utc": "2026-10-18",
+  "scope": {
+    "dataset": "10x GEM-X Human PBMC Donor 1, 96-cell chr1 prepared input",
+    "analysis_chromosomes": [
+      "chr1"
+    ],
+    "quality_analysis_executed": false,
+    "product_changed": false,
+    "optimizer_or_grid": "forbidden",
+    "umap_tuning": "forbidden"
+  },
+  "reference_acquisition": {
+    "genome_contigs": 194,
+    "chr1_length": 248956422,
+    "atlas_bed_bytes": 14442791,
+    "atlas_bed_sha256_receipt_fingerprint": "d60dc7addad2982c3463dcaab67d0a74d278a6e33a2852a4373bd1eeb4174595",
+    "official_external_checksum_available": false,
+    "interpretation": "The download SHA256 is only a receipt fingerprint. The intake receipt reports gzip CRC success, 11 columns, 569005 clusters, and chr1 alias '1' with 51384 rows.",
+    "genome_sha256_verified": {
+      "GRCh38.primary_assembly.genome.fa": "e49b92b3e4f321bf254c042f25b726d9931c4d74c7523e8b6bb530e63b0cfd4b",
+      "GRCh38.primary_assembly.genome.fa.fai": "a2c323ea4cff34d7123ace4578f7e122b2d2f5a22f40dc23eb8b97d17723d169",
+      "GRCh38.primary_assembly.genome.dict": "6d4f7ccf3cfa7b67ba1a53e16ff62f3b04dd91fc64033aaf0266e441d72db1df"
+    }
+  },
+  "polyasite_source_verification": {
+    "selection": "bulk PolyASite v2.0 Homo sapiens GRCh38.96 only; atlas_sc v3 and MAAPER PolyADB RDS excluded",
+    "official_bed_url": "https://polyasite.unibas.ch/download/atlas/2.0/GRCh38.96/atlas.clusters.2.0.GRCh38.96.bed.gz",
+    "url_verification": {
+      "method": "HTTP HEAD by the method author; the URL was later downloaded for intake",
+      "http_status": 200,
+      "content_type": "application/octet-stream",
+      "content_length": 14442791,
+      "last_modified": "Wed, 22 Apr 2020 12:48:31 GMT",
+      "etag": "\"5ea03d1f-dc6127\""
+    },
+    "release": "v2.0 (GRCh38.96), official page date 21/04/2020",
+    "libraries": 221,
+    "clusters": 569005,
+    "clusters_with_polya_signal_percent": 76,
+    "coordinate_schema": {
+      "bed": "standard 0-based half-open [start,end)",
+      "columns": 11,
+      "col4_cluster_id": "UCSC-like representative position is 1-based",
+      "representative_point0_rule": "rep0 = parse(col4).position_1based - 1",
+      "representative_membership_check": "start <= rep0 < end",
+      "observed_contig_alias": "atlas '1' maps one-way to reference 'chr1' for this Q1; no global chr stripping/adding",
+      "unmatched_policy": "retain unmatched chromosome, representative, or strand rows in an NA/fail audit; never coerce to a match"
+    },
+    "protocol_profile_from_samples_page": {
+      "3'-Seq (Mayr)": 59,
+      "3'READS": 52,
+      "QuantSeq_REV": 27,
+      "SAPAS": 25,
+      "PAPERCLIP": 22,
+      "DRS": 11,
+      "A-seq": 10,
+      "PolyA-seq": 10,
+      "3P-Seq": 4,
+      "PAS-Seq": 1,
+      "total": 221
+    },
+    "current_dataset_independence": {
+      "target": "10x GEM-X Human PBMC Donor 1",
+      "dataset_manifest_id": "tenx_human_pbmc_donor1_5k_gemx_v4_fastq",
+      "recorded_source_page": "https://www.10xgenomics.com/datasets/5k_Human_Donor1_PBMC_3p_gem-x",
+      "recorded_fastq_url": "https://cf.10xgenomics.com/samples/cell-exp/9.0.0/5k_Human_Donor1_PBMC_3p_gem-x_Multiplex/5k_Human_Donor1_PBMC_3p_gem-x_Multiplex_fastqs.tar",
+      "sra_or_geo_accession_recorded": false,
+      "live_source_page_check": "HTTP 429 on 2026-10-18; not retried",
+      "evidence_for_no_overlap": "The bulk atlas is based on SRA searches as of June 2019 and its listed human protocols contain no 10x GEM-X category; the target manifest is a later 10x 9.0.0 GEM-X distribution with no accession linking it to atlas samples.",
+      "required_inference_limit": "This supports operational non-overlap, not certified donor/patient identity independence. Release date is not identity proof."
+    },
+    "methods_paper": {
+      "title": "PolyASite 2.0: a consolidated atlas of polyadenylation sites from 3' end sequencing",
+      "pmc_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7145510/",
+      "publisher_doi_verified": "https://doi.org/10.1093/nar/gkz918",
+      "evidence": [
+        "Reads were discarded for >6 consecutive A or >7 A in 10 genomically encoded nucleotides downstream of the mapped 3' end.",
+        "Libraries retained high-abundance site groups until 90% had a PAS in -60 to +10; 80-90% PAS occurrence near 21 nt upstream is the cited rationale.",
+        "Sites within -12/+12 of a stronger site were clustered; PAS-annotated and other clusters could merge within 25 nt.",
+        "The atlas page lists AATAAA and ATTAAA as the first two PAS motifs but uses a broader motif panel; it reports 76% of clusters with signal."
+      ]
+    },
+    "license": {
+      "database_license_found": false,
+      "portal_notice": "University of Basel copyright footer",
+      "article_license": "CC BY-NC 4.0 for the paper text; this does not by itself establish the database redistribution license."
+    },
+    "external_reference_conclusion": {
+      "decision": "Approved as an external comparison/reference, not ground truth and not an independent third metric.",
+      "sample_independence_limit": "Operational sample non-overlap is a supported inference; donor/patient identity is not certified, and release date alone is not identity proof.",
+      "metric_independence_limit": "Motif, downstream-A, and atlas agreement are correlated because atlas construction used PAS and internal-priming rules.",
+      "construction_clarification": "Documented bulk atlas cohorts support operational non-overlap with this GEM-X distribution; no donor-level identity certification is claimed."
+    }
+  },
+  "coordinate_contract": {
+    "authoritative_native_source": "utils/terminal_quant_utils.py",
+    "boundary_proxy_b0": {
+      "definition": "plus: BED end; minus: BED start",
+      "meaning": "0f observable cleavage-boundary proxy; the exact cleavage base is not established"
+    },
+    "base_proxy_p0": {
+      "definition": "plus: BED end - 1; minus: BED start",
+      "meaning": "last-templated-base proxy used only for comparison with atlas rep0"
+    },
+    "atlas_rep0": "col4 1-based position minus 1",
+    "distance_rule": "same mapped chromosome and same strand; absolute(p0 - atlas_rep0)",
+    "plus_example_bed_100_110": {
+      "bed_0based_halfopen": [
+        100,
+        110
+      ],
+      "b0": 110,
+      "p0": 109,
+      "atlas_rep1": 110,
+      "atlas_rep0": 109,
+      "atlas_distance": 0,
+      "upstream_0based_halfopen": [
+        60,
+        110
+      ],
+      "downstream_0based_halfopen": [
+        110,
+        120
+      ]
+    },
+    "minus_example_bed_100_110": {
+      "bed_0based_halfopen": [
+        100,
+        110
+      ],
+      "b0": 100,
+      "p0": 100,
+      "atlas_rep1": 101,
+      "atlas_rep0": 100,
+      "atlas_distance": 0,
+      "upstream_0based_halfopen_transcribed": [
+        100,
+        150
+      ],
+      "downstream_0based_halfopen_transcribed": [
+        90,
+        100
+      ]
+    },
+    "forbidden": "Do not apply the benchmark context annotator's minus start+1 rule as native 0f fact, and do not subtract one from b0 on both strands."
+  },
+  "pipeline_comparison": {
+    "baseline": "existing 96-cell chr1 coverage 3 / minTail 5 revision 0f output",
+    "candidate": "coverage 1",
+    "sole_candidate_change": "--unscaled-depth-threshold-polyA 3 -> 1",
+    "parameter_semantics": "This is inclusive per-base unscaled poly(A) bedGraph pileup depth derived after read processing/UMI assignment; it is not tail length and not a per-cell or per-site aggregated support threshold.",
+    "common_required_explicits": {
+      "--minpolyA": 5,
+      "coverage_scaling": "retain baseline; poly(A) depth must remain unscaled/fixed, not dynamic",
+      "other_parameters": "scientific parameters, inputs, and code revision identical to baseline, including non-A allowance, MAPQ, merge distance, expression threshold, reference, BAM, and code revision; generated output paths/run IDs necessarily differ"
+    },
+    "non_optimization": "No grid search, UMAP adjustment, threshold search, metric-guided rerun, or post hoc parameter selection."
+  },
+  "sequence_presets": {
+    "alphabet_and_missingness": "Uppercase soft-masked genomic sequence without hard masking. Accept only A/C/G/T: boundary truncation, N, or any other residue makes the affected metric NA with a reason; NA is never pass.",
+    "motif": {
+      "window_length": 50,
+      "orientation": "transcript upstream: plus [b0-50,b0); minus [b0,b0+50) reverse complement",
+      "patterns_strict": [
+        "AATAAA",
+        "ATTAAA"
+      ],
+      "outcome": "Record all motif start offsets in transcript orientation and nearest_start_offset=max(offsets); full6mer must fit in50nt. Valid window indices0..44 give offsets-50..-6 via i-50.",
+      "status": "PAS dependence is expected. The exact 50-nt upstream-only window is a preregistered engineering choice informed by PolyASite's -60/+10 rationale, not a derived biological optimum.",
+      "motif_length": 6,
+      "window_start_index_min": 0,
+      "window_start_index_max": 44,
+      "start_offset_min": -50,
+      "start_offset_max": -6
+    },
+    "downstream_a_richness": {
+      "window_length": 10,
+      "orientation": "transcript downstream: plus [b0,b0+10); minus [b0-10,b0), reverse complemented to the transcribed strand",
+      "rules": "risk=true if at least 7 consecutive A or at least 8 A in 10; otherwise false; report max A-run and A count",
+      "status": "Adapted from PolyASite's read-level IP filter to a site-level genomic check. This adaptation is a preregistered engineering choice, not the atlas method itself."
+    },
+    "native_read_end_mispriming": {
+      "role": "retain as a separate native, read-based source",
+      "forbidden": "It does not replace the genomic downstream A-richness metric or collapse into one score."
+    }
+  },
+  "atlas_metrics": {
+    "primary": {
+      "name": "nearest_representative_distance",
+      "threshold": 25,
+      "definition": "same mapped chromosome/strand; nearest rep0; concordant iff minimum distance <=25. Report distance histogram, tie count, and deterministic lexicographically ascending col4 representative ID; retain all tied IDs in the audit.",
+      "status": "25 nt is a preregistered engineering choice echoing PolyASite merge scale; not proof of identical site",
+      "tie_policy": "Report full tie count and all tied unique cluster IDs; choose lexicographically smallest ID as deterministic representative. Reject duplicate clusterIDs in retained chr1 atlas."
+    },
+    "secondary_descriptive_only": {
+      "name": "interval_overlap",
+      "definition": "same mapped chromosome/strand and intersection length >=1bp between native BED interval and atlas [start,end); do not require atlas gene annotation and native gene name to match because annotation versions differ",
+      "forbidden": "Never combine with nearest distance into one score; report native and atlas interval widths alongside overlap."
+    },
+    "stratification": [
+      "terminal",
+      "intronic",
+      "other native context",
+      "shared exact b0",
+      "coverage-1-only b0",
+      "coverage-3-only b0 if present",
+      "strand"
+    ]
+  },
+  "controls": [
+    {
+      "id": "plus-strand-and-base-proxy",
+      "bed_0based_halfopen": [
+        100,
+        110
+      ],
+      "strand": "+",
+      "atlas_rep1": 110,
+      "expected": {
+        "b0": 110,
+        "p0": 109,
+        "atlas_rep0": 109,
+        "atlas_distance": 0,
+        "upstream_0based_halfopen": [
+          60,
+          110
+        ],
+        "downstream_0based_halfopen": [
+          110,
+          120
+        ]
+      }
+    },
+    {
+      "id": "minus-strand-and-orientation",
+      "bed_0based_halfopen": [
+        100,
+        110
+      ],
+      "strand": "-",
+      "atlas_rep1": 101,
+      "expected": {
+        "b0": 100,
+        "p0": 100,
+        "atlas_rep0": 100,
+        "atlas_distance": 0,
+        "upstream_0based_halfopen_transcribed": [
+          100,
+          150
+        ],
+        "downstream_0based_halfopen_transcribed": [
+          90,
+          100
+        ],
+        "wrong_plus_formula_p0": 109,
+        "wrong_plus_formula_distance": 9
+      }
+    },
+    {
+      "id": "off-by-one",
+      "bed_0based_halfopen": [
+        100,
+        110
+      ],
+      "strand": "+",
+      "atlas_rep1": 111,
+      "expected": {
+        "atlas_rep0": 110,
+        "atlas_distance": 1,
+        "b0_distance_if_wrong": 0
+      }
+    },
+    {
+      "id": "motif-shift",
+      "fixture": "plus canonical hexamer wholly inside exact upstream window but absent from a one-base-shifted probe",
+      "expected": "exact-window match is counted; shifted-probe match is not used for the frozen metric"
+    },
+    {
+      "id": "boundary-NA",
+      "fixture": "plus BED [0,10); b0=10 and b0<50",
+      "expected": {
+        "motif": "NA",
+        "motif_reason": "boundary_truncation: required upstream [−40,10) crosses contig start",
+        "denominator_rule": "excluded from pass/false and risk denominators; not counted as biological fail"
+      }
+    },
+    {
+      "id": "N-NA",
+      "fixture": "plus BED [190,200); upstream [150,200) contains one N and downstream [200,210) contains one N",
+      "expected": {
+        "motif": "NA",
+        "downstream_a_richness": "NA",
+        "reason": "unsupported_alphabet_N",
+        "denominator_rule": "excluded from pass/false and risk denominators; not counted as biological fail"
+      }
+    },
+    {
+      "id": "last-complete-hexamer-start",
+      "window_length": 50,
+      "motif_length": 6,
+      "start_index": 44,
+      "expected_offset": -6,
+      "expected_full_match_allowed": true
+    },
+    {
+      "id": "hexamer-crossing-window-end",
+      "window_length": 50,
+      "motif_length": 6,
+      "start_index": 45,
+      "expected_offset": -5,
+      "expected_full_match_allowed": false
+    }
+  ],
+  "reporting_contract": {
+    "dimensions": [
+      "strict PAS motif",
+      "genomic downstream A-richness",
+      "PolyASite external reference",
+      "native read-end mispriming"
+    ],
+    "rules": "For motif and A-richness use outcomes true/false/NA. NA is a separate audit class with reason, excluded from evaluable denominators and never counted as biological false/fail. Report evaluable N, pass/risk/concordant counts, false counts, NA counts and reasons by arm, strand, and stratification. Present cross-tabs but do not create a single total score or optimizer objective. Preserve failed and not-evaluable rows.",
+    "coverage_delta": "Compare arm-level quality summaries; define shared sites only on exact chromosome/strand/b0. Report interval-width distributions and interval counts; do not silently map shifted intervals.",
+    "unit": "One row per native catalogue PAS, retaining nativefailed/not-evaluable and zero-count sites. Group exact chromosome/strand/b0 endpoints without silently deduplicating rows; coverage-only endpoints are operational differences, not novel biological sites."
+  },
+  "limitations": [
+    "PolyASite is built with PAS and internal-priming filters, so motif, A-richness, and atlas agreement are correlated.",
+    "The two coverage settings are a targeted sensitivity pair, not proof of global optimality.",
+    "The native b0/p0 values are observable proxies, not proved cleavage bases.",
+    "Operational sample non-overlap does not establish donor identity independence.",
+    "No official atlas checksum is known; the observed SHA256 is a receipt fingerprint only.",
+    "This file is a method proposal; no Q1 quality result is claimed."
+  ],
+  "source_urls": [
+    "https://polyasite.unibas.ch/atlas",
+    "https://polyasite.unibas.ch/samples",
+    "https://polyasite.unibas.ch/",
+    "https://polyasite.unibas.ch/download/atlas/2.0/GRCh38.96/atlas.clusters.2.0.GRCh38.96.bed.gz",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC7145510/",
+    "https://doi.org/10.1093/nar/gkz918",
+    "https://www.10xgenomics.com/datasets/5k_Human_Donor1_PBMC_3p_gem-x"
+  ],
+  "frozen_utc": "2026-10-18T11:00:41.401217+00:00"
+}

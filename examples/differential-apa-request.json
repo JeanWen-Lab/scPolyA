@@ -1,0 +1,33 @@
+{
+  "schema": "scpolya.differential_apa.request.v1",
+  "inputs": {
+    "manifest": "/absolute/synthetic/manifest.tsv",
+    "metadata": "/absolute/synthetic/metadata.tsv",
+    "annotation": "/absolute/synthetic/catalogue.tsv.gz"
+  },
+  "cell_type": "CD8T",
+  "contrast": {"control": "CTRL", "case": "CASE"},
+  "provenance": {
+    "kind": "synthetic",
+    "description": "Synthetic fixture only; no real donor inference",
+    "metadata_origin": "Explicit fixture-generation record with synthetic donor and condition labels"
+  },
+  "runtime": {
+    "rscript": "/usr/bin/Rscript",
+    "r_library": "/absolute/task-specific/R-library"
+  },
+  "options": {
+    "analysis_set": "native-terminal",
+    "min_cells": 20,
+    "allow_unmatched_cells": false,
+    "methods": "edger,limma",
+    "descriptive_only": false,
+    "paired": false,
+    "batch": false,
+    "min_pas_count": 5,
+    "min_pas_samples": "auto",
+    "min_unit_count": 20,
+    "seed": 20261021,
+    "timeout_seconds": 1200
+  }
+}

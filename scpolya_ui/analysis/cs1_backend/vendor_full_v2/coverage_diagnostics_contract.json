@@ -1,0 +1,163 @@
+{
+  "schema": "scpolya.fixed_coverage.method.v2",
+  "operation": "fixed_feature_coverage",
+  "version": 2,
+  "lineage": {
+    "accepted_calculator_sha256": "85785068963e1962b2b2fbdb6166192cecbd89256154fb34b57271103cba68c1",
+    "scope": "Ported integer,median,pooled/cell-support arithmetic; two declared groups and bounded generic dimensions. No mutable research imports.",
+    "engineering_extension": "v2 dimension/resource/schema extension; scientific calculate_coverage and verify_result unchanged apart from result schema version."
+  },
+  "caps": {
+    "cells": 8192,
+    "genes": 1024,
+    "PAS": 4096,
+    "maximum_count": 10000000,
+    "input_bytes_total": 402653184,
+    "output_bytes_total": 536870912,
+    "wall_seconds_max": 6900
+  },
+  "integer_safety": "8192*4096*10000000=335544320000000 < 2^53-1 < int64 max; checked N/T element bounds unchanged.",
+  "fields": {
+    "n_cells_group": {
+      "type": "integer",
+      "unit": "cells",
+      "definition": "All fixed cells assigned to this declared group."
+    },
+    "total_terminal_UMI": {
+      "type": "integer",
+      "unit": "site_assigned_terminal_UMI",
+      "definition": "Sum of the group's T for this fixed gene, or all fixed genes for a group summary; not independent RNA expression."
+    },
+    "n_cells_T_positive": {
+      "type": "integer",
+      "unit": "cells",
+      "definition": "Count T>0 in this group/gene."
+    },
+    "n_cells_T_zero": {
+      "type": "integer",
+      "unit": "cells",
+      "definition": "Count T=0; missing APA evidence, not biological zero usage."
+    },
+    "median_T_all_cells": {
+      "type": "float64",
+      "unit": "UMI_per_cell",
+      "definition": "Median over all group cells, including zeros."
+    },
+    "median_T_positive_cells": {
+      "type": "nullable_float64",
+      "unit": "UMI_per_positive_cell",
+      "definition": "Median over T>0 cells; null if none, never substituted with zero."
+    },
+    "n_fixed_eligible_PAS": {
+      "type": "integer",
+      "unit": "fixed_PAS",
+      "definition": "Size of this supplied gene block, K>=2; upstream eligibility is declared, not independently certified."
+    },
+    "n_PAS_positive_pooled_within_group": {
+      "type": "integer",
+      "unit": "PAS",
+      "definition": "Count of fixed PAS with a positive sum across all cells in this group."
+    },
+    "pooled_PAS_counts_in_frozen_order": {
+      "type": "integer_array",
+      "unit": "UMI_per_fixed_PAS",
+      "definition": "Group sums, every fixed PAS retained in original feature order, including zeros."
+    },
+    "PAS_identities_in_frozen_order": {
+      "type": "identity_array",
+      "unit": "identity",
+      "definition": "Original feature index,native order and peak string, without reordering or coercion."
+    },
+    "second_largest_pooled_PAS_count_in_group": {
+      "type": "integer",
+      "unit": "UMI",
+      "definition": "Second largest count among all fixed PAS; zero when fewer than2 are positive. Not distal/proximal identity."
+    },
+    "n_cells_with_at_least_two_positive_PAS": {
+      "type": "integer",
+      "unit": "cells",
+      "definition": "Cells with >=2 positive fixed PAS within this gene; not pooled multi-site support."
+    },
+    "fraction_cells_T_positive": {
+      "type": "float64",
+      "unit": "fraction_0_to_1",
+      "numerator": "n_cells_T_positive",
+      "denominator": "n_cells_group",
+      "definition": "All group cells are the denominator; not a percentile or p-value."
+    },
+    "fraction_cells_with_at_least_two_positive_PAS": {
+      "type": "float64",
+      "unit": "fraction_0_to_1",
+      "numerator": "n_cells_with_at_least_two_positive_PAS",
+      "denominator": "n_cells_group",
+      "definition": "All group cells are the denominator."
+    },
+    "total_retained_gene_UMI": {
+      "type": "integer",
+      "unit": "UMI_per_cell",
+      "definition": "Cell sum of T over all fixed gene blocks."
+    },
+    "n_genes_T_positive": {
+      "type": "integer",
+      "unit": "genes_per_cell",
+      "definition": "Fixed genes with cell T>0."
+    },
+    "n_genes_with_at_least_two_positive_PAS": {
+      "type": "integer",
+      "unit": "genes_per_cell",
+      "definition": "Fixed genes with >=2 positive PAS within this cell."
+    },
+    "n_genes_positive_T_both_groups": {
+      "type": "integer",
+      "unit": "joint_gene_intersection",
+      "definition": "Genes with positive pooled T in BOTH declared groups; reported once outside group marginals."
+    },
+    "n_genes_at_least_two_positive_pooled_PAS_both_groups": {
+      "type": "integer",
+      "unit": "joint_gene_intersection",
+      "definition": "Genes with >=2 positive pooled PAS in BOTH groups; neither marginal, their minimum nor all-cell pooling."
+    },
+    "summary_counts": {
+      "type": "integer",
+      "unit": "counts_as_labelled",
+      "definition": "n_cells,n_genes,n_PAS and global_terminal_UMI describe this fixed supplied bundle."
+    },
+    "per_cell_summary_statistics": {
+      "type": "object",
+      "unit": "same_as_named_per_cell_field",
+      "definition": "min/median/max over all fixed group cells; no new filtering or adequacy gate."
+    },
+    "identity": {
+      "type": "string_or_index",
+      "unit": "identity",
+      "definition": "Identifiers including001/NA/UTF8 remain strings; only explicit ordinal index columns are integers."
+    },
+    "n_cells": {
+      "type": "integer",
+      "unit": "cells",
+      "definition": "All fixed supplied cells; within a group summary, all fixed cells in that declared group."
+    },
+    "n_genes": {
+      "type": "integer",
+      "unit": "fixed_genes",
+      "definition": "All supplied fixed gene blocks, with none filtered."
+    },
+    "n_PAS": {
+      "type": "integer",
+      "unit": "fixed_PAS",
+      "definition": "All supplied fixed PAS, including globally zero sites."
+    },
+    "global_terminal_UMI": {
+      "type": "integer",
+      "unit": "site_assigned_terminal_UMI",
+      "definition": "Sum of T across every fixed supplied cell and gene; not independent RNA expression."
+    }
+  },
+  "interpretation_limits": [
+    "T=0 is missing APA evidence, not biological zero usage.",
+    "No row/feature selection,upstream-filter diagnosis,R2,null,UMAP,p-value,effect-size,power or biological inference.",
+    "Declared sample context, successful execution, integrity, scientific review and native completion are different claims.",
+    "Hashes establish bounded byte consistency, not owner approval, provenance authenticity or a hostile-host sandbox."
+  ],
+  "numeric_export": "Raw integers and null retained; float64 views in TSV use.17g and are actually reparsed, then checked against JSON."
+}

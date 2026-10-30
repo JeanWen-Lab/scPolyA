@@ -1,0 +1,34 @@
+[
+  {
+    "upstream_path": "scpolya_agent/native_coverage.py",
+    "upstream_sha256": "cae56fbf2939f4546c0e1f292d09960130761fb62e7638e97584376d5e5f0b48",
+    "upstream_bytes": 72425,
+    "derived_path": "native_coverage.py",
+    "derived_sha256": "2d72f501fe9f39e1e3aaacb22d9b744925d63d98cb9260926e660c2880b9edb6",
+    "derived_bytes": 72563
+  },
+  {
+    "upstream_path": "scpolya_agent/native_coverage_recipe.json",
+    "upstream_sha256": "a7d3c1e17b5e98cbe6ee47607e1347c4edc96caec402ca1a6072ac24edf1bf9e",
+    "upstream_bytes": 4861,
+    "derived_path": "native_coverage_recipe.json",
+    "derived_sha256": "90744dede991d7386b5acb9a89515aaa71bffdf0e3968371e390e70e994205bb",
+    "derived_bytes": 5024
+  },
+  {
+    "upstream_path": "scpolya_agent/coverage_diagnostics.py",
+    "upstream_sha256": "45d597c5955eb54ddc5ab80e03006edc0b11907432c28b4b20daf197fa04df29",
+    "upstream_bytes": 56453,
+    "derived_path": "coverage_diagnostics.py",
+    "derived_sha256": "4aa2424b1aaf6ae7eead0b05e05d8d892fb22333c59f729eb677ee64cab0db2c",
+    "derived_bytes": 56476
+  },
+  {
+    "upstream_path": "scpolya_agent/coverage_diagnostics_contract.json",
+    "upstream_sha256": "34729eca65284f509ca584a85a67ff4c13bbc87029cbc997bd648c84e6a7f653",
+    "upstream_bytes": 6529,
+    "derived_path": "coverage_diagnostics_contract.json",
+    "derived_sha256": "a8a1f42b00f4742fbd2af3c53fbb0a8af9200eea7a99b6e1ecebefd8cca62b04",
+    "derived_bytes": 6644
+  }
+]

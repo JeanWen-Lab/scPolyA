@@ -1,0 +1,4 @@
+interface:
+  display_name: "Resume and diagnose scPolyA"
+  short_description: "Diagnose native jobs"
+  prompt: "Inspect native task and supervisor state and recover the same exact plan after the researcher agrees in the chat."

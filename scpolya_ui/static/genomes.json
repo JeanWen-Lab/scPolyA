@@ -1,0 +1,6 @@
+[
+  {"id": "local-mm10", "name": "mm10"},
+  {"id": "local-hg38", "name": "hg38"},
+  {"id": "local-fly", "name": "fly"},
+  {"id": "local-worm", "name": "worm"}
+]

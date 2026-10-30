@@ -1,0 +1,4 @@
+interface:
+  display_name: "Compare scPolyA settings"
+  short_description: "Compare native settings"
+  prompt: "Plan small matched native setting comparisons and report observed, missing, and unsupported evidence honestly."

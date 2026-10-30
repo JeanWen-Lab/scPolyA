@@ -1,0 +1,148 @@
+{
+  "schema": "scpolya.agent.gene_diagnostics.contract.v2",
+  "implementation": "scpolya_agent.gene_diagnostics.diagnose_gene_units",
+  "status": "descriptive_recipe_not_native_quantification_export",
+  "signature": "diagnose_gene_units(count_rows, catalogue_rows, unit_registry, policy, provenance)",
+  "scope": "Parsed complete selected-locus records only; no filesystem, BAM, pipeline, network, CLI or inference. Input arrays are list/tuple, rows are dict. No cell-by-gene Cartesian expansion.",
+  "count_row_required": {
+    "sample_id": "nonblank string in policy.sample_ids",
+    "cell_barcode": "nonblank native string including suffix",
+    "peak_name": "nonblank native string; unique mapping within sample",
+    "umi_count": "integer 0..9007199254740991; bool/float/string rejected"
+  },
+  "catalogue_row_required": {
+    "sample_id": "nonblank string in policy.sample_ids",
+    "peak_name": "unique sample-scoped nonblank string",
+    "gene_id": "native nonblank string, or null/blank for explicitly unassigned (normal audit exclusion)",
+    "strand": "+/- when gene assigned; null/blank/dot permitted for unassigned",
+    "feature": "native nonblank context string; no context reassignment",
+    "misprimed_ratio": "finite numeric [0,1] or null for not evaluable",
+    "general_mispriming_pass": "JSON boolean, agrees with ratio<=recorded general threshold",
+    "intronic_mispriming_pass": "JSON boolean, agrees with ratio<=recorded intronic threshold",
+    "mispriming_pass": "JSON boolean; intronic flag for Intron, general flag otherwise",
+    "is_distal_peak": "JSON boolean or null; used without selecting a new distal",
+    "distance_to_stop_codon": "native numeric distance or null; Python NaN/Inf allowed as unavailable-order input, never emitted",
+    "n_peaks_in_gene": "positive integer for eligible terminal sites, otherwise null or positive integer",
+    "peak_order_in_gene": "positive integer for eligible terminal sites, otherwise null or positive integer"
+  },
+  "identity": "sample_id + cell_barcode + gene_id + strand; gene_name never used for identity. Strings such as NA, 001, 1 stay distinct; text values are not trimmed or converted. Maximum identifier length512.",
+  "unit_registry": "null or list of explicit sample_id/cell_barcode/gene_id/strand requests for known catalogue genes, including zero-count units; union with observed assigned count units. Duplicate requests fail. Unassigned-only counts create no gene unit.",
+  "policy_required": {
+    "quantification_mode": "terminal-aware",
+    "sample_ids": "unique nonempty list of <=1000 explicit sample IDs",
+    "sample_binding": "explicit_sample_id",
+    "complete_locus_counts": true,
+    "complete_locus_catalogue": true,
+    "sparse_omission_is_zero": true,
+    "general_mispriming_threshold": "finite number [0,1]",
+    "intronic_mispriming_threshold": "finite number [0,1]",
+    "psi_min_gene_umis": "nonnegative integer"
+  },
+  "policy_optional_limits": {
+    "count_rows": 50000,
+    "catalogue_rows": 2000,
+    "registry_rows": 256,
+    "output_units": 256,
+    "output_records": 4096,
+    "input_text_bytes": 4194304,
+    "input_nodes": 500000,
+    "output_json_bytes": 1048576,
+    "rule": "Only reductions to positive integers accepted. Output records =5/unit +1/catalogue site +1/sample audit. Integer sums bounded by9007199254740991. All caps reject with structured limit_exceeded; no partial return or silent truncation. Callers may batch selected loci/units explicitly in a separate layer."
+  },
+  "provenance": "Caller-supplied dict of <=32 scalar JSON entries, <=65536 encoded bytes; string values<=4096. May contain run_commit:null or an unverified claimed commit/hash/path. Output explicitly labels trust=caller_supplied_not_certified. Completeness, external sample identity, external file hashes and producer completion are NOT verified. Reviewed product commit is never inserted as run version.",
+  "native_sets": {
+    "T": "count sum over native general-pass Terminal_exon or Downstream_of_terminal_exon with assigned gene; includes single-terminal genes",
+    "I": "count sum over native intronic-pass Intron with assigned gene",
+    "D": "count at exactly one native flagged terminal distal whose finite distance is unique maximum. Ties, absent/incorrect flag or nonfinite distance make D unavailable, never select a substitute",
+    "S_assigned_raw": "all assigned counts for that gene/strand, including evaluable failed intronic audit sites and other contexts",
+    "S_retained": "all assigned counts with native mispriming_pass=true across all contexts",
+    "O_retained": "S_retained - T - I",
+    "failed_intronic_audit_umis": "count sum over intronic sites not passing native intronic filter"
+  },
+  "metrics": {
+    "distal_fraction_all_assigned": "D / S_assigned_raw",
+    "distal_fraction_retained_all_contexts": "D / S_retained",
+    "distal_fraction_terminal_conditional": "D/T; for >=2 eligible sites value_or_null follows psi_min_gene_umis mask; raw_arithmetic_value_or_null separately preserves arithmetic. Single-terminal value is a control and recipe_native_comparable_distal_value_or_null=null.",
+    "intronic_fraction_intronic_plus_terminal": "I / (I+T); not native log2((I+1)/(T+1)) iPUI"
+  },
+  "metric_row_fields": [
+    "sample_id",
+    "cell_barcode",
+    "gene_id",
+    "strand",
+    "metric_name",
+    "numerator",
+    "denominator",
+    "value_or_null",
+    "status",
+    "reason_codes",
+    "notes",
+    "site_population"
+  ],
+  "terminal_metric_extra_fields": [
+    "raw_arithmetic_value_or_null",
+    "recipe_native_comparable_distal_value_or_null"
+  ],
+  "output": [
+    "schema",
+    "interpretation",
+    "provenance",
+    "scope",
+    "denominator_rows",
+    "metric_rows",
+    "site_audit",
+    "unassigned_count_audit"
+  ],
+  "semantics": [
+    "Four named metrics always emitted per unit; no implicit S choice and no overwrite/relabel of native outputs.",
+    "Zero numerator with positive denominator is0; zero denominator is null. No pseudocounts. Missing/incomplete input declarations are validation errors, never zeros.",
+    "Missing sparse site rows are zero only under caller's explicit complete scope for observed or requested known units.",
+    "No eligible terminal site: D-related and intronic comparative ratios unavailable; preserve S,I,T counts. Single terminal: D/T arithmetic control, not switching evidence.",
+    "No intronic candidate: I fraction may be0 with explicit no_intronic_candidate_not_absence_of_biology note. Existing but all failed/not-evaluable intronic candidates: fraction unavailable/no_retained_intronic_evidence.",
+    "Failed intronic counts contribute only to raw S and audit totals; NA-ratio or failed-nonintronic positive counts are inconsistent with reviewed native count population and rejected.",
+    "Metadata pass flags are validated for consistency with recorded thresholds, never repaired/replaced. Terminal count/order membership must agree with complete supplied catalogue.",
+    "Same maximal distance or multiple distal flags disables only distal metrics; intronic arithmetic remains independent. Minus strand uses native distance/flags, not maximum genome coordinate.",
+    "Explicit unassigned catalogue records are normal audit exclusions; unknown count peak is validation_error. Duplicate final count rows or catalogue peaks rejected, not summed or chosen-first.",
+    "Stable output sorting; no NaN output; caller input is unchanged. Other locus/evidence annotations may be provided but are not interpreted or certified.",
+    "No switching_eligible or native_psi_eligible field. This recipe makes no comparative switching inference. Literal structural and per-unit arithmetic facts are separated in denominator rows."
+  ],
+  "failure": "DiagnosticValidationError(ValueError), with code/detail and as_dict(); no partial output. Return status in individual metrics for valid-but-unavailable ratios.",
+  "limitations": [
+    "No authentication of provenance or proof that caller's catalogue covers a whole locus; structural checks do not replace external producer validation.",
+    "No file adapters, gene/transcript reassignment, re-deduplication, locus plot, group pooling, significance test, mechanistic interpretation or evidence of real-data validation.",
+    "This recipe supports terminal-aware complete parsed inputs only. Legacy summaries or terminal-only PSI cannot supply S.",
+    "Results now use schema v2 because ambiguous booleans/native-comparable field names were removed or renamed. Defaults are intentionally small; callers must handle limit_exceeded with explicit batching, not raise caps."
+  ],
+  "byte_budget_contract": {
+    "output_encoding": "Exactly json.dumps(result,ensure_ascii=True,sort_keys=True,separators=(\",\",\":\"),allow_nan=False).encode(\"utf-8\"). No indent or trailing newline. Alternative pretty serialization can be larger and is outside this canonical byte cap.",
+    "output_accounting": "Complete initial empty-list result envelope is streamed with JSONEncoder.iterencode, including schema, interpretation, scope/limits, sample IDs and caller-supplied provenance. Each bounded denominator/metric/site-audit/sample-audit record is encoded and charged together with its array comma before append. The entire growing/final result is never serialized to check its size. Records exceeding remaining capacity are not retained; exception returns no partial result.",
+    "input_accounting": "Before building normalized catalogue/count mappings or copying provenance into result, traverse the named argument envelope {count_rows,catalogue_rows,unit_registry,policy,provenance}. Aggregate lengths of all keys and string values after ensure_ascii=True JSON escaping, excluding their surrounding quotes; count every occurrence, even repeated references and unused fields. Strings are checked and encoded in <=4096-codepoint chunks, never by serializing the whole input. Number/boolean/null characters and structural punctuation are not input TEXT bytes; nodes bound traversal separately.",
+    "input_structure": "Every container, scalar value and object key visited counts as a node; named argument envelope is depth0, maximum depth8 (fixed, not raisable). Object keys must be strings. Supported parsed values: dict,list,tuple,str,int,float,bool,null. Cyclic/deep input fails at depth cap; no deep copy or unbounded traversal.",
+    "scope": "Default result<=1MiB canonical JSON, aggregate escaped input text<=4MiB. This is a serialization/recipe bound, not proof that a downstream model has enough context or that raw caller input allocation was bounded."
+  },
+  "denominator_row_fields": {
+    "sample_id": "Caller-bound sample string",
+    "cell_barcode": "Native cell ID including suffix",
+    "gene_id": "Native true gene string",
+    "strand": "Native + or -",
+    "S_assigned_raw": "All counts assigned to this gene+strand including failed intronic audit sites",
+    "S_retained": "Assigned counts passing native context-aware filters",
+    "T": "Eligible terminal count sum, possibly zero",
+    "I": "Retained intronic count sum, possibly zero",
+    "D": "Unique native distal-site count, or null when distal metadata unavailable",
+    "O_retained": "S_retained-T-I",
+    "failed_intronic_audit_umis": "Failed-filter intronic count sum",
+    "eligible_terminal_site_count": "Number of native general-pass terminal catalogue sites",
+    "retained_intronic_site_count": "Number of native intronic-pass catalogue sites",
+    "unique_distal_peak_name": "Unique validated native distal peak ID or null",
+    "has_multiple_eligible_terminal_sites": "Structural catalogue fact: eligible_terminal_site_count>=2. Does not imply positive counts or available value.",
+    "has_unique_distal_metadata": "Structural fact: one supplied native distal flag agrees with unique finite maximal terminal distance; false for no terminal, ties, missing/nonfinite or inconsistent distal metadata.",
+    "positive_terminal_denominator": "Per-unit arithmetic fact T>0.",
+    "terminal_depth_passes_native_mask": "Per-unit arithmetic fact T>=recorded psi_min_gene_umis. Can be true at T=0 if threshold0; positive denominator is an independent requirement.",
+    "recipe_native_comparable_distal_value_available": "True iff the preceding four booleans are all true. Says only this recipe can compute a native-definition-comparable distal fraction for this unit; does NOT assert native output contains a row, certify provenance or imply comparative switching evidence."
+  },
+  "terminal_metric_extra_semantics": {
+    "raw_arithmetic_value_or_null": "D/T when unique D exists and T>0, before native depth masking; includes explicitly labelled single-terminal controls.",
+    "recipe_native_comparable_distal_value_or_null": "D/T only when denominator-row recipe_native_comparable_distal_value_available=true; null otherwise. Recipe-computed value, NOT an authenticated or inspected native export."
+  }
+}

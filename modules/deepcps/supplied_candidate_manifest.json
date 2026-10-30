@@ -1,0 +1,20 @@
+{
+  "schema": "scpolya.deepcps.model.v1",
+  "model_id": "deepcps-score-cov-locate-onehot-seeds1-3",
+  "status": "supplied-unconfirmed",
+  "window_length": 201,
+  "score_input": "onehot+same-strand-total-read-coverage-max-normalised",
+  "locate_input": "onehot",
+  "files": {
+    "score_seed1/model.pt": "8fa18033afb9c01d48ab2c10d40eb8a775260e4a884f6886fe59e88d3934bd62",
+    "score_seed2/model.pt": "5a422e7d5b135bf054f30948122a16654598e7e2302a127ee0fec5f65b9d4a10",
+    "score_seed3/model.pt": "8951d5fbcdb21bf5c577bc5fa45627a57106389e9814d865def01f52ab5422d3",
+    "locate_seed1/model.pt": "135dda70211bb74eb811f7f143d3c0a559bb7b1da5b70649921e6063ff2677fd",
+    "locate_seed2/model.pt": "77575c78874ab7f918be141fa6758686067c8d0fa7fc6bc7c5576689c6a315c2",
+    "locate_seed3/model.pt": "c6c0eff049b26bbc377339981ee9e6b455b4e8e5539311732223617a2e4ae91b",
+    "calibration_isotonic_deepcps.tsv": "b39be5eaefae781c28c0f155dcfb8b4efd2181f2c870849e502686022c1cdeb6",
+    "score_operating_points.tsv": "c1ec21aa01d51cb1c6df18d4a46fe4700aa85261d6c3fb978d3db0766b8612ee",
+    "locate_confidence_thresholds.tsv": "85293883faa66bffdc53865329f5151b3b028609ca2fe69002e0c40a24feb33d"
+  },
+  "architecture_source_sha256": "1ae428636675676eebbc0f06f0ba7a10e17911387622a74d839be11cb8534c62"
+}

@@ -1,0 +1,64 @@
+{
+  "schema": "scpolya.coverage_operation_independent_hand_fixture.v1",
+  "purpose": "Independent arithmetic oracle for the new engineering operation. Counts and expected values are hand-derived, not produced by the accepted calculator or new implementation.",
+  "groups": ["cohort-A", "cohort-B"],
+  "cell_ids": ["001", "002", "NA", "c4", "c5"],
+  "cell_groups": ["cohort-A", "cohort-A", "cohort-B", "cohort-B", "cohort-B"],
+  "gene_ids": ["001", "NA", "Z", "Ω"],
+  "gene_blocks": [[0, 2], [2, 5], [5, 7], [7, 9]],
+  "N": [
+    [0, 3, 4, 1, 0, 0, 0, 2, 0],
+    [0, 0, 0, 5, 0, 0, 0, 0, 3],
+    [2, 1, 0, 2, 0, 0, 0, 2, 3],
+    [0, 4, 0, 0, 0, 3, 2, 0, 0],
+    [0, 0, 0, 0, 0, 1, 0, 0, 0]
+  ],
+  "T": [[3, 5, 0, 2], [0, 5, 0, 3], [3, 2, 0, 5], [4, 0, 5, 0], [0, 0, 1, 0]],
+  "expected_summary": {
+    "n_cells": 5,
+    "n_genes": 4,
+    "n_PAS": 9,
+    "global_terminal_UMI": 38,
+    "n_genes_positive_T_both_groups": 3,
+    "n_genes_at_least_two_positive_pooled_PAS_both_groups": 1,
+    "groups": {
+      "cohort-A": {
+        "n_cells": 2,
+        "total_terminal_UMI": 18,
+        "per_cell": {
+          "total_retained_gene_UMI": {"min": 8, "median": 9.0, "max": 10},
+          "n_genes_T_positive": {"min": 2, "median": 2.5, "max": 3},
+          "n_genes_with_at_least_two_positive_PAS": {"min": 0, "median": 0.5, "max": 1}
+        }
+      },
+      "cohort-B": {
+        "n_cells": 3,
+        "total_terminal_UMI": 20,
+        "per_cell": {
+          "total_retained_gene_UMI": {"min": 1, "median": 9.0, "max": 10},
+          "n_genes_T_positive": {"min": 1, "median": 2.0, "max": 3},
+          "n_genes_with_at_least_two_positive_PAS": {"min": 0, "median": 1.0, "max": 2}
+        }
+      }
+    }
+  },
+  "expected_cell_triples_UMI_positive_multi": [[10, 3, 1], [8, 2, 0], [10, 3, 2], [9, 2, 1], [1, 1, 0]],
+  "expected_gene_group_rows": [
+    {"gene": "001", "group": "cohort-A", "pooled": [0, 3], "T_positive": 1, "T_zero": 1, "median_all": 1.5, "median_positive": 3.0, "multi_cells": 0, "second_largest": 0},
+    {"gene": "001", "group": "cohort-B", "pooled": [2, 5], "T_positive": 2, "T_zero": 1, "median_all": 3.0, "median_positive": 3.5, "multi_cells": 1, "second_largest": 2},
+    {"gene": "NA", "group": "cohort-A", "pooled": [4, 6, 0], "T_positive": 2, "T_zero": 0, "median_all": 5.0, "median_positive": 5.0, "multi_cells": 1, "second_largest": 4},
+    {"gene": "NA", "group": "cohort-B", "pooled": [0, 2, 0], "T_positive": 1, "T_zero": 2, "median_all": 0.0, "median_positive": 2.0, "multi_cells": 0, "second_largest": 0},
+    {"gene": "Z", "group": "cohort-A", "pooled": [0, 0], "T_positive": 0, "T_zero": 2, "median_all": 0.0, "median_positive": null, "multi_cells": 0, "second_largest": 0},
+    {"gene": "Z", "group": "cohort-B", "pooled": [4, 2], "T_positive": 2, "T_zero": 1, "median_all": 1.0, "median_positive": 3.0, "multi_cells": 1, "second_largest": 2},
+    {"gene": "Ω", "group": "cohort-A", "pooled": [2, 3], "T_positive": 2, "T_zero": 0, "median_all": 2.5, "median_positive": 2.5, "multi_cells": 0, "second_largest": 2},
+    {"gene": "Ω", "group": "cohort-B", "pooled": [2, 3], "T_positive": 1, "T_zero": 2, "median_all": 0.0, "median_positive": 5.0, "multi_cells": 1, "second_largest": 2}
+  ],
+  "semantic_traps": [
+    "Per-group pooled-multi gene counts are A=2 and B=3, while their intersection is 1. Neither marginal nor their minimum is the joint count.",
+    "The last fixed PAS of NA is zero in both groups and must remain in the outputs. Its A second-largest pooled count is 4, not the last-PAS count zero.",
+    "Z in cohort-A has no observed T: its positive-only median is null, not zero; this does not establish zero APA usage or biological absence.",
+    "Ω in cohort-A has two positive pooled PAS but no individual cell with two positive PAS.",
+    "001 and NA are literal identifiers; Ω checks UTF-8 identity and bytewise gene ordering.",
+    "The B/001 multi-cell fraction is 1/3; delivered numeric exports must preserve the actual float64 value."
+  ]
+}

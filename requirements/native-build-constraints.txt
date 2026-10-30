@@ -1,0 +1,3 @@
+# Required by the observed umi_tools 1.1.6 isolated source-build route.
+setuptools==80.9.0
+wheel==0.45.1

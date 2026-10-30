@@ -1,0 +1,12 @@
+{
+  "schema": "scpolya.operator_manifest.v1",
+  "native": {
+    "source_root": "/absolute/path/to/clean/native-checkout",
+    "python": "/absolute/path/to/scientific-environment/bin/python",
+    "expected_commit": "<40-hex commit of the checkout>"
+  },
+  "sources": {},
+  "grants": {},
+  "saved": {},
+  "control": {}
+}

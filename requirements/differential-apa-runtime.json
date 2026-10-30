@@ -1,0 +1,21 @@
+{
+  "schema": "scpolya.diff_apa.runtime_requirements.v1",
+  "python": ">=3.10",
+  "python_preparation_dependencies": "standard library only",
+  "backend_asset": "scpolya_diff/backend.R",
+  "external_runtime": "Rscript --vanilla with explicitly selected task-specific --r-library; no automatic installation",
+  "tested_versions": {
+    "R": "4.5.2",
+    "Bioconductor": "3.22",
+    "edgeR": "4.8.2",
+    "limma": "3.66.0",
+    "statmod": "1.5.2",
+    "DRIMSeq": "1.38.0",
+    "BiocParallel": "1.44.0"
+  },
+  "default_methods": ["edger", "limma"],
+  "edger_minimum": "4.6; diffSplice.DGEGLM required",
+  "optional_sensitivity": ["DRIMSeq", "BiocParallel"],
+  "descriptive_mode": "Rscript required; no inferential R packages required",
+  "limits": "Observed versions do not certify cross-version statistical equivalence, DRIMSeq convergence, FDR calibration or real multi-donor inference."
+}
